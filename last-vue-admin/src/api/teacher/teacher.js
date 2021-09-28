@@ -4,7 +4,7 @@ export default {
 
   findTeachersPage(current, limit, teacherQuery) {
     return request({
-      url: `/edu/teacher/find/${current}/${limit}`,
+      url: `/last/service/teacher/find/${current}/${limit}`,
       method: "post",
       data: teacherQuery
     })
@@ -12,14 +12,14 @@ export default {
 
   delTeacherById(id) {
     return request({
-      url: `/edu/teacher/del/${id}`,
+      url: `/last/service/teacher/del/${id}`,
       method: "delete"
     });
   },
 
   saveTeacher(teacher) {
     return request({
-      url: `/edu/teacher/save`,
+      url: `/last/service/teacher/save`,
       method: "post",
       data: teacher
     });
@@ -27,14 +27,14 @@ export default {
 
   findTeacherById(id) {
     return request({
-      url: `/edu/teacher/find/${id}`,
+      url: `/last/service/teacher/find/${id}`,
       method: "get"
     })
   },
 
   updateTeacher(teacher) {
     return request({
-      url: `/edu/teacher/update`,
+      url: `/last/service/teacher/update`,
       method: "post",
       data: teacher
     })

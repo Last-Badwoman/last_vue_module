@@ -17,8 +17,19 @@
         <el-input v-model="teacher.career"></el-input>
       </el-form-item>
       <el-form-item label="简介" prop="pass">
-        <el-input type="textarea" :rows="10" v-model="teacher.intro"></el-input>
+        <el-input type="textarea" :rows="8" v-model="teacher.intro"></el-input>
       </el-form-item>
+      <div style="margin-bottom: 20px;margin-left: 100px">
+        <el-upload
+          class="avatar-uploader"
+          action="http://localhost:9001/last/oss/upload/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="teacher.avatar" :src="teacher.avatar" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </div>
       <el-form-item>
         <el-button type="primary" @click="save" v-if="saveOrUpdate">保存</el-button>
         <el-button type="primary" @click="update" v-else>修改</el-button>
@@ -28,7 +39,34 @@
 
   </div>
 </template>
+<style>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
 
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+</style>
 <script>
   import teacher from "@/api/teacher/teacher";
 
@@ -43,7 +81,8 @@
           intro: null,
           avatar: null
         },
-        saveOrUpdate: true
+        saveOrUpdate: true,
+        dialogVisible: false,
       }
     },
     created() {
@@ -55,6 +94,13 @@
       }
     },
     methods: {
+      handleAvatarSuccess(res, file) {
+        // this.teacher.avatar = URL.createObjectURL(file.raw);
+        this.teacher.avatar = res.data.url;
+      },
+      beforeAvatarUpload(file) {
+
+      },
       init() {
         if (this.$route.params && this.$route.params.id > 0) {
           const id = this.$route.params.id;
@@ -77,9 +123,11 @@
         this.teacher = {
           sort: 0,
           level: 1,
-        }
+          avatar: "",
+          name: "",
+          intro: ""
+        };
       },
-
       save() {
         if (this.teacher.name == null || this.teacher.career == null || this.teacher.intro == null) {
           this.$message({
