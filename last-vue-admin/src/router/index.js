@@ -60,6 +60,49 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/subject',
+    component: Layout,
+    redirect: '/subject/list',
+    name: 'Subject',
+    meta: {title: '课程分类管理', icon: 'example'},
+    children: [
+      {
+        path: 'list',
+        name: 'subjects',
+        component: () => import('@/views/subject/list'),
+        meta: {title: '课程分类列表', icon: 'table'}
+      },
+      {
+        path: 'save',
+        name: 'save',
+        component: () => import('@/views/subject/save'),
+        meta: {title: '课程分类添加', icon: 'tree'}
+      }
+    ]
+  },
+  {
+    path: '/course',
+    component: Layout,
+    redirect: '/course/list',
+    name: 'Subject',
+    meta: {title: '课程管理', icon: 'example'},
+    children: [
+      {
+        path: 'list',
+        name: 'courseS',
+        component: () => import('@/views/course/list'),
+        meta: {title: '课程列表', icon: 'table'}
+      },
+      {
+        path: 'info',
+        name: 'info',
+        component: () => import('@/views/course/info'),
+        meta: {title: '课程发布', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [
